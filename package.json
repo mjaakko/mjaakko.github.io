@@ -1,0 +1,19 @@
+{
+  "name": "mjaakko.github.io",
+  "private": true,
+  "description": "mjaakko.github.io",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "yarn develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
+  },
+  "dependencies": {
+    "gatsby": "^2.0.76",
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1"
+  },
+}
