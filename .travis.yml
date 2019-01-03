@@ -3,6 +3,8 @@ node_js:
   - "node"
 cache:
   yarn: true
+  directories:
+  - .cache
 script: yarn build
 deploy:
   provider: pages
