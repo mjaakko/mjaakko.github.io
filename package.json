@@ -16,6 +16,7 @@
     "gatsby-plugin-typography": "^2.2.4",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
+    "react-reveal": "^1.2.2",
     "react-typography": "^0.16.18",
     "typography": "^0.16.18",
     "typography-theme-judah": "^0.16.18"
