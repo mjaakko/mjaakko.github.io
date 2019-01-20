@@ -1,6 +1,6 @@
-import Typography from 'typography'
-import judahTheme from 'typography-theme-judah'
+import Typography from "typography";
+import judahTheme from "typography-theme-judah";
 
-const typography = new Typography(judahTheme)
+const typography = new Typography(judahTheme);
 
-export default typography
+export default typography;
