@@ -7,45 +7,47 @@ const formatDate = date => date.toLocaleDateString(undefined, { day: 'numeric', 
 
 const getRepoURL = repoName => "https://github.com/" + repoName;
 
-const getRepoLink = repoName => (<a href={ getRepoURL(repoName) } style={{fontWeight: 'bold'}}>{ repoName }</a>)
+const GithubRepoLink = ({repoName}) => (<a href={ getRepoURL(repoName) } style={{fontWeight: 'bold'}}>{ repoName }</a>)
 
-const pushEvent = event => (
+const FormattedDate = ({date}) => (<span style={{fontWeight: 'italic'}}>{ formatDate(new Date(date)) }</span>)
+
+const PushEvent = ({event}) => (
     <li>
-        Pushed { event.payload.size } { pluralize('commit', 'commits', event.payload.size) } to { getRepoLink(event.repo.name) }
+        Pushed { event.payload.size } { pluralize('commit', 'commits', event.payload.size) } to <GithubRepoLink repoName={ event.repo.name }></GithubRepoLink>
         <br />
-        <span style={{fontWeight: 'italic'}}>{ formatDate(new Date(event.created_at)) }</span>
+        <FormattedDate date={ event.created_at }></FormattedDate>
     </li>
 )
 
-const createEvent = event => (
+const CreateEvent = ({event}) => (
     <li>
-        Created repository { getRepoLink(event.repo.name) }
+        Created repository <GithubRepoLink repoName={ event.repo.name }></GithubRepoLink>
         <br />
-        <span style={{fontWeight: 'italic'}}>{ formatDate(new Date(event.created_at)) }</span>
+        <FormattedDate date={ event.created_at }></FormattedDate>
     </li>
 )
 
-const pullRequestEvent = event => (
+const PullRequestEvent = ({event}) => (
     <li>
-        Opened pull request <a href={ event.payload.pull_request.html_url } style={{fontWeight: 'bold'}}>{ event.payload.pull_request.title }</a> in { getRepoLink(event.repo.name) }
+        Opened pull request <a href={ event.payload.pull_request.html_url } style={{fontWeight: 'bold'}}>{ event.payload.pull_request.title }</a> in <GithubRepoLink repoName={ event.repo.name }></GithubRepoLink>
         <br />
-        <span style={{fontWeight: 'italic'}}>{ formatDate(new Date(event.created_at)) }</span>
+        <FormattedDate date={ event.created_at }></FormattedDate>
     </li>
 )
 
-const releaseEvent = event => (
+const ReleaseEvent = ({event}) => (
     <li>
-        Published release <a href={ event.payload.release.html_url } style={{fontWeight: 'bold'}}>{ event.payload.release.name }</a> of { getRepoLink(event.repo.name) }
+        Published release <a href={ event.payload.release.html_url } style={{fontWeight: 'bold'}}>{ event.payload.release.name }</a> of <GithubRepoLink repoName={ event.repo.name }></GithubRepoLink>
         <br />
-        <span style={{fontWeight: 'italic'}}>{ formatDate(new Date(event.created_at)) }</span>
+        <FormattedDate date={ event.created_at }></FormattedDate>
     </li>
 )
 
-const issueEvent = event => (
+const IssueEvent = ({event}) => (
     <li>
-        Opened issue <a href={ event.payload.issue.html_url } style={{fontWeight: 'bold'}}>{ event.payload.issue.title }</a> in { getRepoLink(event.repo.name) }
+        Opened issue <a href={ event.payload.issue.html_url } style={{fontWeight: 'bold'}}>{ event.payload.issue.title }</a> in <GithubRepoLink repoName={ event.repo.name }></GithubRepoLink>
         <br />
-        <span style={{fontWeight: 'italic'}}>{ formatDate(new Date(event.created_at)) }</span>
+        <FormattedDate date={ event.created_at }></FormattedDate>
     </li>
 )
 
@@ -65,15 +67,15 @@ class GithubEvents extends React.Component {
         const content = this.state.error ? <p>{this.state.error}</p> :
                             this.state.events ? <ul>{ this.state.events.map(event => {
                                 if (event.type === 'PushEvent') {
-                                    return (<Fade>{ pushEvent(event) }</Fade>)
+                                    return (<Fade><PushEvent event={ event }></PushEvent></Fade>)
                                 } else if (event.type === 'CreateEvent' && event.payload.ref_type === 'repository') {
-                                    return (<Fade>{ createEvent(event) }</Fade>)
+                                    return (<Fade><CreateEvent event={ event }></CreateEvent></Fade>)
                                 } else if (event.type === 'PullRequestEvent' && event.payload.action === 'opened') {
-                                    return (<Fade>{pullRequestEvent(event) }</Fade>)
+                                    return (<Fade><PullRequestEvent event={ event }></PullRequestEvent></Fade>)
                                 } else if (event.type === 'ReleaseEvent') {
-                                    return (<Fade>{ releaseEvent(event) }</Fade>)
+                                    return (<Fade><ReleaseEvent event={ event }></ReleaseEvent></Fade>)
                                 } else if (event.type === 'IssueEvent' && event.payload.action === 'opened') {
-                                    return (<Fade>{ issueEvent(event) }</Fade>)
+                                    return (<Fade><IssueEvent event={ event }></IssueEvent></Fade>)
                                 } else {
                                     return null
                                 }
