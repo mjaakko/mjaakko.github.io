@@ -11,6 +11,17 @@
     "serve": "gatsby serve",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "gatsby": "^2.0.76",
     "gatsby-plugin-offline": "^2.0.21",
