@@ -9,7 +9,7 @@ const getRepoURL = repoName => "https://github.com/" + repoName;
 
 const GithubRepoLink = ({repoName}) => (<a href={ getRepoURL(repoName) } style={{fontWeight: 'bold'}}>{ repoName }</a>)
 
-const FormattedDate = ({date}) => (<span style={{fontWeight: 'italic'}}>{ formatDate(new Date(date)) }</span>)
+const FormattedDate = ({date}) => (<span style={{fontStyle: 'italic'}}>{ formatDate(new Date(date)) }</span>)
 
 const PushEvent = ({event}) => (
     <li>
