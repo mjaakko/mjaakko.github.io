@@ -67,7 +67,7 @@ const ReleaseEvent = ({ event }) => (
   </li>
 );
 
-const IssueEvent = ({ event }) => (
+const IssuesEvent = ({ event }) => (
   <li>
     Opened issue{" "}
     <a href={event.payload.issue.html_url} style={{ fontWeight: "bold" }}>
@@ -128,12 +128,12 @@ class GithubEvents extends React.Component {
               </Fade>
             );
           } else if (
-            event.type === "IssueEvent" &&
+            event.type === "IssuesEvent" &&
             event.payload.action === "opened"
           ) {
             return (
               <Fade>
-                <IssueEvent event={event} />
+                <IssuesEvent event={event} />
               </Fade>
             );
           } else {
