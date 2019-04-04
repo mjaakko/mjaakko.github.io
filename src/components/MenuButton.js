@@ -1,11 +1,26 @@
 import React from "react";
+import styled from "styled-components";
 
-const spanStyle = {
-  display: "block",
-  backgroundColor: "white",
-  borderRadius: "3px",
-  height: 5
-};
+const MenuButtonBar = styled.span`
+  display: block;
+  background-color: ${props => props.color || "white"};
+  border-radius: 3px;
+  height: 5px;
+`;
+
+const MenuButton = styled.button.attrs(({ size }) => ({
+  style: { width: size, height: size }
+}))`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: stretch;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  padding 0
+`;
 
 export default class extends React.PureComponent {
   constructor(props) {
@@ -22,29 +37,18 @@ export default class extends React.PureComponent {
 
   render() {
     return (
-      <button
-        style={{
-          ...this.props.style,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-          alignItems: "stretch",
-          border: "none",
-          font: "inherit",
-          color: "inherit",
-          backgroundColor: "transparent",
-          padding: 0
-        }}
+      <MenuButton
+        size={this.props.size}
         onClick={() =>
           this.setState(state => {
             return { open: !state.open };
           })
         }
       >
-        <span style={spanStyle} />
-        <span style={spanStyle} />
-        <span style={spanStyle} />
-      </button>
+        <MenuButtonBar color={this.props.color} />
+        <MenuButtonBar color={this.props.color} />
+        <MenuButtonBar color={this.props.color} />
+      </MenuButton>
     );
   }
 }

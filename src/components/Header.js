@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { StaticQuery, graphql, Link } from "gatsby";
 
 import Responsive from "./Responsive";
@@ -8,29 +9,26 @@ import typography from "../utils/typography";
 
 const { options } = typography;
 
+const MenuLink = styled(Link)`
+  color: white;
+  font-weight: bold;
+  font-family: ${options.headerFontFamily.join()};
+  margin: 0 0.5rem;
+`;
+
 const MenuItem = React.memo(({ title, path }) => (
-  <Link
-    to={path}
-    style={{
-      color: "white",
-      fontWeight: "bold",
-      fontFamily: options.headerFontFamily,
-      margin: "0 0.5rem"
-    }}
-  >
-    {title}
-  </Link>
+  <MenuLink to={path}>{title}</MenuLink>
 ));
 
+const MobileMenuNav = styled.nav`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: stretch;
+`;
+
 const MobileMenu = ({ menu }) => (
-  <nav
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-evenly",
-      alignItems: "stretch"
-    }}
-  >
+  <MobileMenuNav>
     {menu.map(menuItem => (
       <MenuItem
         key={menuItem.path}
@@ -38,11 +36,15 @@ const MobileMenu = ({ menu }) => (
         title={menuItem.title}
       />
     ))}
-  </nav>
+  </MobileMenuNav>
 );
 
+const DesktopMenuNav = styled.nav`
+  display: inline;
+`;
+
 const DesktopMenu = ({ menu }) => (
-  <nav style={{ display: "inline" }}>
+  <DesktopMenuNav>
     {menu.map(menuItem => (
       <MenuItem
         key={menuItem.path}
@@ -50,8 +52,30 @@ const DesktopMenu = ({ menu }) => (
         title={menuItem.title}
       />
     ))}
-  </nav>
+  </DesktopMenuNav>
 );
+
+const Header = styled.header`
+  background-color: ${props => props.color};
+  width: 100%;
+  padding: 1rem ${props => (props.desktop ? "10rem" : "1rem")};
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 4px 4px gray;
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+`;
+
+const HeaderTitle = styled.h1`
+  display: inline;
+  flex-grow: 1;
+  margin: 0;
+`;
 
 export default class extends React.Component {
   constructor(props) {
@@ -82,43 +106,27 @@ export default class extends React.Component {
         render={data => (
           <Responsive>
             {desktop => (
-              <header
-                style={{
-                  backgroundColor: data.site.siteMetadata.headerColor,
-                  width: "100%",
-                  padding: `1rem ${desktop ? "10rem" : "1rem"}`,
-                  marginBottom: "1rem",
-                  boxShadow: "0 1px 4px 4px gray"
-                }}
+              <Header
+                color={data.site.siteMetadata.headerColor}
+                desktop={desktop}
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "start",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    width: "100%"
-                  }}
-                >
-                  <h1 style={{ display: "inline", flexGrow: 1, margin: 0 }}>
+                <HeaderContainer>
+                  <HeaderTitle>
                     <Link to="/" style={{ color: "white" }}>
                       {data.site.siteMetadata.title}
                     </Link>
-                  </h1>
+                  </HeaderTitle>
                   {desktop && (
                     <DesktopMenu menu={data.site.siteMetadata.menu} />
                   )}
                   {!desktop && (
-                    <MenuButton
-                      style={{ width: 50, height: 50 }}
-                      onChange={this.onChange}
-                    />
+                    <MenuButton size="50px" onChange={this.onChange} />
                   )}
-                </div>
+                </HeaderContainer>
                 {!desktop && this.state.mobileMenuOpen && (
                   <MobileMenu menu={data.site.siteMetadata.menu} />
                 )}
-              </header>
+              </Header>
             )}
           </Responsive>
         )}

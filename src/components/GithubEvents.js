@@ -1,5 +1,7 @@
 import React from "react";
+import styled from "styled-components";
 import Fade from "react-reveal/Fade";
+
 import pluralize from "../utils/pluralize";
 import { userEvents } from "../utils/githubApi";
 
@@ -12,14 +14,20 @@ const formatDate = date =>
 
 const getRepoURL = repoName => "https://github.com/" + repoName;
 
+const BoldLink = styled.a`
+  font-weight: bold;
+`;
+
 const GithubRepoLink = ({ repoName }) => (
-  <a href={getRepoURL(repoName)} style={{ fontWeight: "bold" }}>
-    {repoName}
-  </a>
+  <BoldLink href={getRepoURL(repoName)}>{repoName}</BoldLink>
 );
 
+const DateSpan = styled.span`
+  font-style: italic;
+`;
+
 const FormattedDate = ({ date }) => (
-  <span style={{ fontStyle: "italic" }}>{formatDate(new Date(date))}</span>
+  <DateSpan>{formatDate(new Date(date))}</DateSpan>
 );
 
 const PushEvent = ({ event }) => (
@@ -43,12 +51,9 @@ const CreateEvent = ({ event }) => (
 const PullRequestEvent = ({ event }) => (
   <li>
     Opened pull request{" "}
-    <a
-      href={event.payload.pull_request.html_url}
-      style={{ fontWeight: "bold" }}
-    >
+    <BoldLink href={event.payload.pull_request.html_url}>
       {event.payload.pull_request.title}
-    </a>{" "}
+    </BoldLink>{" "}
     in <GithubRepoLink repoName={event.repo.name} />
     <br />
     <FormattedDate date={event.created_at} />
@@ -58,9 +63,9 @@ const PullRequestEvent = ({ event }) => (
 const ReleaseEvent = ({ event }) => (
   <li>
     Published release{" "}
-    <a href={event.payload.release.html_url} style={{ fontWeight: "bold" }}>
+    <BoldLink href={event.payload.release.html_url}>
       {event.payload.release.name}
-    </a>{" "}
+    </BoldLink>{" "}
     of <GithubRepoLink repoName={event.repo.name} />
     <br />
     <FormattedDate date={event.created_at} />
@@ -70,9 +75,9 @@ const ReleaseEvent = ({ event }) => (
 const IssuesEvent = ({ event }) => (
   <li>
     Opened issue{" "}
-    <a href={event.payload.issue.html_url} style={{ fontWeight: "bold" }}>
+    <BoldLink href={event.payload.issue.html_url}>
       {event.payload.issue.title}
-    </a>{" "}
+    </BoldLink>{" "}
     in <GithubRepoLink repoName={event.repo.name} />
     <br />
     <FormattedDate date={event.created_at} />
