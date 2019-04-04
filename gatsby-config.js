@@ -1,3 +1,5 @@
+const path = require(`path`);
+
 module.exports = {
   siteMetadata: {
     siteUrl: "https://malkki.xyz",
@@ -19,6 +21,16 @@ module.exports = {
     {
       resolve: `gatsby-plugin-typography`,
       options: { pathToConfigModule: `src/utils/typography.js` }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `markdown`,
+        path: path.join(__dirname, `src`, `content`)
+      }
+    },
+    {
+      resolve: `gatsby-transformer-remark`
     },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
