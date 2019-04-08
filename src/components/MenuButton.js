@@ -8,9 +8,9 @@ const MenuButtonBar = styled.span`
   height: 5px;
 `;
 
-const MenuButton = styled.button.attrs(({ size }) => ({
-  style: { width: size, height: size }
-}))`
+const MenuButton = styled.button`
+  width: ${props => props.size};
+  height: ${props => props.size};
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
