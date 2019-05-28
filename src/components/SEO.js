@@ -39,6 +39,10 @@ export default ({ pageTitle, pageDescription, pagePath }) => (
           <title>{title}</title>
           <meta name="description" content={description} />
           <link rel="canonical" href={canonicalUrl} />
+          <meta
+            name="google-site-verification"
+            content="7plJI9PIjUYQfvMz5-tplgZZ5kEGyE7zxOK5kps1CXM"
+          />
         </Helmet>
       );
     }}
