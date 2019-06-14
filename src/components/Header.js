@@ -18,7 +18,14 @@ const MenuLink = styled(Link)`
 
   &:hover {
     color: white;
-    transform: rotate(10deg);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 800px) {
+    &:hover {
+      text-decoration: none;
+      transform: rotate(10deg);
+    }
   }
 `;
 
@@ -30,7 +37,7 @@ const MobileMenuNav = styled.nav`
   display: ${props => (props.open ? "flex" : "none")};
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: stretch;
+  align-items: center;
 
   @media (min-width: 800px) {
     display: none;
