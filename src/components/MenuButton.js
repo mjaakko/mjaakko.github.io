@@ -38,6 +38,7 @@ export default class extends React.PureComponent {
   render() {
     return (
       <MenuButton
+        className={this.props.className}
         size={this.props.size}
         onClick={() =>
           this.setState(state => {
