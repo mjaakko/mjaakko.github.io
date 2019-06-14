@@ -3,15 +3,10 @@ import styled from "styled-components";
 import TransitionGroup from "react-transition-group/TransitionGroup";
 import Fade from "react-reveal/Fade";
 
+import moment from "moment";
+
 import pluralize from "../utils/pluralize";
 import { userEvents } from "../utils/githubApi";
-
-const formatDate = date =>
-  date.toLocaleDateString(undefined, {
-    day: "numeric",
-    month: "numeric",
-    year: "numeric"
-  });
 
 const getRepoURL = repoName => "https://github.com/" + repoName;
 
@@ -23,13 +18,16 @@ const GithubRepoLink = ({ repoName }) => (
   <BoldLink href={getRepoURL(repoName)}>{repoName}</BoldLink>
 );
 
-const DateSpan = styled.span`
+const StyledTime = styled.time`
   font-style: italic;
 `;
 
-const FormattedDate = ({ date }) => (
-  <DateSpan>{formatDate(new Date(date))}</DateSpan>
-);
+const FormattedDate = ({ date }) => {
+  const d = new Date(date);
+  return (
+    <StyledTime dateTime={d.toISOString()}>{moment(d).fromNow()}</StyledTime>
+  );
+};
 
 const PushEvent = ({ event }) => (
   <li>
