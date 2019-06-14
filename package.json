@@ -37,7 +37,6 @@
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
-    "react-media": "^1.9.2",
     "react-reveal": "^1.2.2",
     "react-transition-group": "^2.8.0",
     "react-typography": "^0.16.18",
