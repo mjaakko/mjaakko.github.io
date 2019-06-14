@@ -9,10 +9,17 @@ import typography from "../utils/typography";
 const { options } = typography;
 
 const MenuLink = styled(Link)`
+  display: inline-block;
   color: white;
   font-weight: bold;
   font-family: ${options.headerFontFamily.join()};
   margin: 0 0.5rem;
+  transition: all 0.3s ease-in-out 0s;
+
+  &:hover {
+    color: white;
+    transform: rotate(10deg);
+  }
 `;
 
 const MenuItem = React.memo(({ title, path }) => (
