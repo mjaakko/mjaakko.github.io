@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { StaticQuery, graphql, Link } from "gatsby";
+import { Link } from "gatsby";
 
 import MenuButton from "./MenuButton";
+
+import useSiteMetadata from "../hooks/useSiteMetadata";
 
 import typography from "../utils/typography";
 
@@ -109,50 +111,22 @@ const MobileMenuButton = styled(MenuButton)`
   }
 `;
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const siteMetadata = useSiteMetadata();
 
-    this.state = { mobileMenuOpen: false };
-  }
-
-  onChange = mobileMenuOpen => this.setState({ mobileMenuOpen });
-
-  render() {
-    return (
-      <StaticQuery
-        query={graphql`
-          query {
-            site {
-              siteMetadata {
-                title
-                headerColor
-                menu {
-                  path
-                  title
-                }
-              }
-            }
-          }
-        `}
-        render={data => (
-          <Header color={data.site.siteMetadata.headerColor}>
-            <HeaderContainer>
-              <HeaderTitle>
-                <Link to="/" style={{ color: "white" }}>
-                  {data.site.siteMetadata.title}
-                </Link>
-              </HeaderTitle>
-              <DesktopMenu menu={data.site.siteMetadata.menu} />
-              <MobileMenuButton size="50px" onChange={this.onChange} />
-            </HeaderContainer>
-            <MobileMenu
-              menu={data.site.siteMetadata.menu}
-              open={this.state.mobileMenuOpen}
-            />
-          </Header>
-        )}
-      />
-    );
-  }
-}
+  return (
+    <Header color={siteMetadata.headerColor}>
+      <HeaderContainer>
+        <HeaderTitle>
+          <Link to="/" style={{ color: "white" }}>
+            {siteMetadata.title}
+          </Link>
+        </HeaderTitle>
+        <DesktopMenu menu={siteMetadata.menu} />
+        <MobileMenuButton size="50px" onChange={setMobileMenuOpen} />
+      </HeaderContainer>
+      <MobileMenu menu={siteMetadata.menu} open={mobileMenuOpen} />
+    </Header>
+  );
+};
