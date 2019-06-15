@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const MenuButtonBar = styled.span`
@@ -22,34 +22,21 @@ const MenuButton = styled.button`
   padding 0
 `;
 
-export default class extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default ({ className, color, size, onChange }) => {
+  const [open, setOpen] = useState(false);
 
-    this.state = { open: false };
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.open !== this.state.open) {
-      this.props.onChange(this.state.open);
-    }
-  }
-
-  render() {
-    return (
-      <MenuButton
-        className={this.props.className}
-        size={this.props.size}
-        onClick={() =>
-          this.setState(state => {
-            return { open: !state.open };
-          })
-        }
-      >
-        <MenuButtonBar color={this.props.color} />
-        <MenuButtonBar color={this.props.color} />
-        <MenuButtonBar color={this.props.color} />
-      </MenuButton>
-    );
-  }
-}
+  return (
+    <MenuButton
+      className={className}
+      size={size}
+      onClick={() => {
+        onChange(!open);
+        setOpen(!open);
+      }}
+    >
+      <MenuButtonBar color={color} />
+      <MenuButtonBar color={color} />
+      <MenuButtonBar color={color} />
+    </MenuButton>
+  );
+};
