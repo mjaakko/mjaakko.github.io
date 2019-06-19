@@ -8,6 +8,7 @@ cache:
   directories:
   - .cache
 script: yarn build
+before_cache: test ${TRAVIS_TEST_RESULT} -ne 0 && rm -r .cache/
 deploy:
   provider: pages
   skip-cleanup: true
