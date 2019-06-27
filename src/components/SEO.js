@@ -10,11 +10,31 @@ export default ({ pageTitle, pageDescription, pagePath }) => {
 
   const canonicalUrl = metadata.siteUrl + pagePath;
 
-  const description = pageDescription || "Personal website of Jaakko Malkki";
+  const description = pageDescription || metadata.description;
+
+  const language = "en";
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    inLanguage: language,
+    description: metadata.description,
+    name: metadata.title,
+    url: metadata.siteUrl
+  };
+
+  const webpageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    inLanguage: language,
+    url: canonicalUrl,
+    name: pageTitle,
+    description: description
+  };
 
   return (
     <Helmet>
-      <html lang="en" prefix="og: http://ogp.me/ns#" />
+      <html lang={language} prefix="og: http://ogp.me/ns#" />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:type" content="website" />
       <meta property="og:title" content={title} />
@@ -31,6 +51,9 @@ export default ({ pageTitle, pageDescription, pagePath }) => {
         name="google-site-verification"
         content="7plJI9PIjUYQfvMz5-tplgZZ5kEGyE7zxOK5kps1CXM"
       />
+      <script type="application/ld+json">
+        {JSON.stringify([websiteJsonLd, webpageJsonLd])}
+      </script>
     </Helmet>
   );
 };
