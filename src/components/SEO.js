@@ -37,8 +37,10 @@ export default ({ pageTitle, pageDescription, pagePath }) => {
       <html lang={language} prefix="og: http://ogp.me/ns#" />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:type" content="website" />
-      <meta property="og:title" content={title} />
+      <meta property="og:title" content={pageTitle} />
+      <meta property="og:site_name" content={metadata.title} />
       <meta property="og:description" content={description} />
+      <meta property="og:locale" description={language} />
       {/* <meta property="og:image" content={shareImageUrl} /> */}
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content={title} />
