@@ -4,6 +4,7 @@ module.exports = {
   siteMetadata: {
     siteUrl: "https://malkki.xyz",
     title: "Jaakko Malkki",
+    description: "Personal website of Jaakko Malkki",
     headerColor: "#825d21",
     menu: [
       {

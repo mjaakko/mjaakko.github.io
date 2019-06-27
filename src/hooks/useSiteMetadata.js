@@ -7,6 +7,7 @@ export default () => {
         siteMetadata {
           siteUrl
           title
+          description
           headerColor
           menu {
             path
