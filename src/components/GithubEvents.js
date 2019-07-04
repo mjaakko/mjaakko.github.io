@@ -89,7 +89,7 @@ const IssuesEvent = ({ event }) => (
 class GithubEvents extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { events: [], error: null };
+    this.state = { events: null, error: null };
   }
 
   componentDidMount() {
@@ -104,7 +104,7 @@ class GithubEvents extends React.Component {
         <Preconnect url="https://api.github.com" />
         <div>
           <h3>Activity in GitHub</h3>
-          {!this.state.events && !this.state.error && (
+          {!!this.state.events || !!this.state.error || (
             <LoadingIndicator>Loading</LoadingIndicator>
           )}
           {this.state.error && <p>{this.state.error}</p>}
