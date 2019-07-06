@@ -6,10 +6,10 @@ import Fade from "react-reveal/Fade";
 import moment from "moment";
 
 import pluralize from "../utils/pluralize";
-import { userEvents } from "../utils/githubApi";
 
 import LoadingIndicator from "./LoadingIndicator";
 import Preconnect from "./Preconnect";
+import useGitHubUserEvents from "../hooks/useGitHubUserEvents";
 
 const getRepoURL = repoName => "https://github.com/" + repoName;
 
@@ -86,82 +86,67 @@ const IssuesEvent = ({ event }) => (
   </li>
 );
 
-class GithubEvents extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { events: null, error: null };
-  }
+export default ({ user }) => {
+  const { events, error } = useGitHubUserEvents(user);
 
-  componentDidMount() {
-    userEvents(this.props.user)
-      .then(events => this.setState({ events: events }))
-      .catch(error => this.setState({ error: error }));
-  }
-
-  render() {
-    return (
-      <>
-        <Preconnect url="https://api.github.com" />
-        <div>
-          <h3>Activity in GitHub</h3>
-          {!!this.state.events || !!this.state.error || (
-            <LoadingIndicator>Loading</LoadingIndicator>
-          )}
-          {this.state.error && <p>{this.state.error}</p>}
-          {this.state.events && (
-            <ul>
-              <TransitionGroup appear={true} enter={true}>
-                {this.state.events.map(event => {
-                  if (event.type === "PushEvent") {
-                    return (
-                      <Fade key={event.id}>
-                        <PushEvent event={event} />
-                      </Fade>
-                    );
-                  } else if (
-                    event.type === "CreateEvent" &&
-                    event.payload.ref_type === "repository"
-                  ) {
-                    return (
-                      <Fade key={event.id}>
-                        <CreateEvent event={event} />
-                      </Fade>
-                    );
-                  } else if (
-                    event.type === "PullRequestEvent" &&
-                    event.payload.action === "opened"
-                  ) {
-                    return (
-                      <Fade key={event.id}>
-                        <PullRequestEvent event={event} />
-                      </Fade>
-                    );
-                  } else if (event.type === "ReleaseEvent") {
-                    return (
-                      <Fade key={event.id}>
-                        <ReleaseEvent event={event} />
-                      </Fade>
-                    );
-                  } else if (
-                    event.type === "IssuesEvent" &&
-                    event.payload.action === "opened"
-                  ) {
-                    return (
-                      <Fade key={event.id}>
-                        <IssuesEvent event={event} />
-                      </Fade>
-                    );
-                  } else {
-                    return null;
-                  }
-                })}
-              </TransitionGroup>
-            </ul>
-          )}
-        </div>
-      </>
-    );
-  }
-}
-
-export default GithubEvents;
+  return (
+    <>
+      <Preconnect url="https://api.github.com" />
+      <div>
+        <h3>Activity in GitHub</h3>
+        {!!events || !!error || <LoadingIndicator>Loading</LoadingIndicator>}
+        {error && <p>{error}</p>}
+        {events && (
+          <ul>
+            <TransitionGroup appear={true} enter={true}>
+              {events.map(event => {
+                if (event.type === "PushEvent") {
+                  return (
+                    <Fade key={event.id}>
+                      <PushEvent event={event} />
+                    </Fade>
+                  );
+                } else if (
+                  event.type === "CreateEvent" &&
+                  event.payload.ref_type === "repository"
+                ) {
+                  return (
+                    <Fade key={event.id}>
+                      <CreateEvent event={event} />
+                    </Fade>
+                  );
+                } else if (
+                  event.type === "PullRequestEvent" &&
+                  event.payload.action === "opened"
+                ) {
+                  return (
+                    <Fade key={event.id}>
+                      <PullRequestEvent event={event} />
+                    </Fade>
+                  );
+                } else if (event.type === "ReleaseEvent") {
+                  return (
+                    <Fade key={event.id}>
+                      <ReleaseEvent event={event} />
+                    </Fade>
+                  );
+                } else if (
+                  event.type === "IssuesEvent" &&
+                  event.payload.action === "opened"
+                ) {
+                  return (
+                    <Fade key={event.id}>
+                      <IssuesEvent event={event} />
+                    </Fade>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </TransitionGroup>
+          </ul>
+        )}
+      </div>
+    </>
+  );
+};
