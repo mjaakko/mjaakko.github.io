@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import TransitionGroup from "react-transition-group/TransitionGroup";
 import Fade from "react-reveal/Fade";
 
 import moment from "moment";
@@ -98,52 +97,50 @@ export default ({ user }) => {
         {error && <p>{error}</p>}
         {events && (
           <ul>
-            <TransitionGroup appear={true} enter={true}>
-              {events.map(event => {
-                if (event.type === "PushEvent") {
-                  return (
-                    <Fade key={event.id}>
-                      <PushEvent event={event} />
-                    </Fade>
-                  );
-                } else if (
-                  event.type === "CreateEvent" &&
-                  event.payload.ref_type === "repository"
-                ) {
-                  return (
-                    <Fade key={event.id}>
-                      <CreateEvent event={event} />
-                    </Fade>
-                  );
-                } else if (
-                  event.type === "PullRequestEvent" &&
-                  event.payload.action === "opened"
-                ) {
-                  return (
-                    <Fade key={event.id}>
-                      <PullRequestEvent event={event} />
-                    </Fade>
-                  );
-                } else if (event.type === "ReleaseEvent") {
-                  return (
-                    <Fade key={event.id}>
-                      <ReleaseEvent event={event} />
-                    </Fade>
-                  );
-                } else if (
-                  event.type === "IssuesEvent" &&
-                  event.payload.action === "opened"
-                ) {
-                  return (
-                    <Fade key={event.id}>
-                      <IssuesEvent event={event} />
-                    </Fade>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </TransitionGroup>
+            {events.map(event => {
+              if (event.type === "PushEvent") {
+                return (
+                  <Fade key={event.id}>
+                    <PushEvent event={event} />
+                  </Fade>
+                );
+              } else if (
+                event.type === "CreateEvent" &&
+                event.payload.ref_type === "repository"
+              ) {
+                return (
+                  <Fade key={event.id}>
+                    <CreateEvent event={event} />
+                  </Fade>
+                );
+              } else if (
+                event.type === "PullRequestEvent" &&
+                event.payload.action === "opened"
+              ) {
+                return (
+                  <Fade key={event.id}>
+                    <PullRequestEvent event={event} />
+                  </Fade>
+                );
+              } else if (event.type === "ReleaseEvent") {
+                return (
+                  <Fade key={event.id}>
+                    <ReleaseEvent event={event} />
+                  </Fade>
+                );
+              } else if (
+                event.type === "IssuesEvent" &&
+                event.payload.action === "opened"
+              ) {
+                return (
+                  <Fade key={event.id}>
+                    <IssuesEvent event={event} />
+                  </Fade>
+                );
+              } else {
+                return null;
+              }
+            })}
           </ul>
         )}
       </div>
