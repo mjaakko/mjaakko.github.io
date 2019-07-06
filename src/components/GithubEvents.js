@@ -32,25 +32,25 @@ const FormattedDate = ({ date }) => {
 };
 
 const PushEvent = ({ event }) => (
-  <li>
+  <>
     Pushed {event.payload.size}{" "}
     {pluralize("commit", "commits", event.payload.size)} to{" "}
     <GithubRepoLink repoName={event.repo.name} />
     <br />
     <FormattedDate date={event.created_at} />
-  </li>
+  </>
 );
 
 const CreateEvent = ({ event }) => (
-  <li>
+  <>
     Created repository <GithubRepoLink repoName={event.repo.name} />
     <br />
     <FormattedDate date={event.created_at} />
-  </li>
+  </>
 );
 
 const PullRequestEvent = ({ event }) => (
-  <li>
+  <>
     Opened pull request{" "}
     <BoldLink href={event.payload.pull_request.html_url}>
       {event.payload.pull_request.title}
@@ -58,11 +58,11 @@ const PullRequestEvent = ({ event }) => (
     in <GithubRepoLink repoName={event.repo.name} />
     <br />
     <FormattedDate date={event.created_at} />
-  </li>
+  </>
 );
 
 const ReleaseEvent = ({ event }) => (
-  <li>
+  <>
     Published release{" "}
     <BoldLink href={event.payload.release.html_url}>
       {event.payload.release.name}
@@ -70,11 +70,11 @@ const ReleaseEvent = ({ event }) => (
     of <GithubRepoLink repoName={event.repo.name} />
     <br />
     <FormattedDate date={event.created_at} />
-  </li>
+  </>
 );
 
 const IssuesEvent = ({ event }) => (
-  <li>
+  <>
     Opened issue{" "}
     <BoldLink href={event.payload.issue.html_url}>
       {event.payload.issue.title}
@@ -82,7 +82,7 @@ const IssuesEvent = ({ event }) => (
     in <GithubRepoLink repoName={event.repo.name} />
     <br />
     <FormattedDate date={event.created_at} />
-  </li>
+  </>
 );
 
 export default ({ user }) => {
@@ -96,52 +96,54 @@ export default ({ user }) => {
         {!!events || !!error || <LoadingIndicator>Loading</LoadingIndicator>}
         {error && <p>{error}</p>}
         {events && (
-          <ul>
-            {events.map(event => {
-              if (event.type === "PushEvent") {
-                return (
-                  <Fade key={event.id}>
-                    <PushEvent event={event} />
-                  </Fade>
-                );
-              } else if (
-                event.type === "CreateEvent" &&
-                event.payload.ref_type === "repository"
-              ) {
-                return (
-                  <Fade key={event.id}>
-                    <CreateEvent event={event} />
-                  </Fade>
-                );
-              } else if (
-                event.type === "PullRequestEvent" &&
-                event.payload.action === "opened"
-              ) {
-                return (
-                  <Fade key={event.id}>
-                    <PullRequestEvent event={event} />
-                  </Fade>
-                );
-              } else if (event.type === "ReleaseEvent") {
-                return (
-                  <Fade key={event.id}>
-                    <ReleaseEvent event={event} />
-                  </Fade>
-                );
-              } else if (
-                event.type === "IssuesEvent" &&
-                event.payload.action === "opened"
-              ) {
-                return (
-                  <Fade key={event.id}>
-                    <IssuesEvent event={event} />
-                  </Fade>
-                );
-              } else {
-                return null;
-              }
-            })}
-          </ul>
+          <Fade bottom cascade duration={1200}>
+            <ul>
+              {events.map(event => {
+                if (event.type === "PushEvent") {
+                  return (
+                    <li key={event.id}>
+                      <PushEvent event={event} />
+                    </li>
+                  );
+                } else if (
+                  event.type === "CreateEvent" &&
+                  event.payload.ref_type === "repository"
+                ) {
+                  return (
+                    <li key={event.id}>
+                      <CreateEvent event={event} />
+                    </li>
+                  );
+                } else if (
+                  event.type === "PullRequestEvent" &&
+                  event.payload.action === "opened"
+                ) {
+                  return (
+                    <li key={event.id}>
+                      <PullRequestEvent key={event.id} event={event} />
+                    </li>
+                  );
+                } else if (event.type === "ReleaseEvent") {
+                  return (
+                    <li key={event.id}>
+                      <ReleaseEvent key={event.id} event={event} />
+                    </li>
+                  );
+                } else if (
+                  event.type === "IssuesEvent" &&
+                  event.payload.action === "opened"
+                ) {
+                  return (
+                    <li key={event.id}>
+                      <IssuesEvent key={event.id} event={event} />
+                    </li>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </ul>
+          </Fade>
         )}
       </div>
     </>
