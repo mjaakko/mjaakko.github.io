@@ -1,6 +1,19 @@
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  const typeDefs = `
+    type MarkdownRemark implements Node {
+      frontmatter: Frontmatter
+    }
+    type Frontmatter {
+      redirect: String
+    }
+  `;
+  createTypes(typeDefs);
+};
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions;
   if (node.internal.type === `MarkdownRemark`) {
@@ -20,6 +33,9 @@ exports.createPages = ({ graphql, actions }) => {
       allMarkdownRemark {
         edges {
           node {
+            frontmatter {
+              redirect
+            }
             fields {
               slug
             }
@@ -41,7 +57,9 @@ exports.createPages = ({ graphql, actions }) => {
 };
 
 const templateComponentForNode = node => {
-  if (node.fields.slug.startsWith("/projects/")) {
+  if (node.frontmatter.redirect) {
+    return path.resolve(`./src/templates/redirect.js`);
+  } else if (node.fields.slug.startsWith("/projects/")) {
     return path.resolve(`./src/templates/project.js`);
   } else {
     return null;
