@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby";
 
 import Layout from "../components/layout";
 import SEO from "../components/SEO";
+import BreadcrumbList from "../components/BreadcrumbList";
 
 export default ({ data, ...props }) => {
   const pages = data.allMarkdownRemark.edges;
@@ -11,6 +12,9 @@ export default ({ data, ...props }) => {
   return (
     <>
       <SEO pagePath={props.location.pathname} pageTitle="Projects" />
+      <BreadcrumbList
+        breadcrumbs={[{ name: "Projects", path: "/projects/" }]}
+      />
       <Layout>
         <h1>Projects</h1>
         <ul>

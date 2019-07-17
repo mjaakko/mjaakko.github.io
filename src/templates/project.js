@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 
 import Layout from "../components/layout";
 import SEO from "../components/SEO";
+import BreadcrumbList from "../components/BreadcrumbList";
 
 export default ({ data, pageContext }) => {
   const page = data.markdownRemark;
@@ -12,6 +13,12 @@ export default ({ data, pageContext }) => {
         pageTitle={page.frontmatter.title}
         pageDescription={page.excerpt}
         pagePath={pageContext.slug}
+      />
+      <BreadcrumbList
+        breadcrumbs={[
+          { name: "Projects", path: "/projects/" },
+          { name: page.frontmatter.title, path: pageContext.slug }
+        ]}
       />
       <Layout>
         <h1>{page.frontmatter.title}</h1>
