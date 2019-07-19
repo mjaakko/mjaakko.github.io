@@ -9,6 +9,8 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
     type Frontmatter {
       redirect: String
+      title: String
+      order: Int
     }
   `;
   createTypes(typeDefs);
