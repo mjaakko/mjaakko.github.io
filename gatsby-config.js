@@ -33,6 +33,14 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `yaml`,
+        path: path.join(__dirname, `src`, `config`)
+      }
+    },
+    `gatsby-transformer-yaml`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-robots-txt`,
