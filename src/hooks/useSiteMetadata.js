@@ -9,10 +9,6 @@ export default () => {
           title
           description
           headerColor
-          menu {
-            path
-            title
-          }
         }
       }
     }

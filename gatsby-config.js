@@ -5,17 +5,7 @@ module.exports = {
     siteUrl: "https://malkki.xyz",
     title: "Jaakko Malkki",
     description: "Personal website of Jaakko Malkki",
-    headerColor: "#825d21",
-    menu: [
-      {
-        path: "/projects",
-        title: "Projects"
-      },
-      {
-        path: "/contact",
-        title: "Contact"
-      }
-    ]
+    headerColor: "#825d21"
   },
   plugins: [
     `gatsby-plugin-styled-components`,
