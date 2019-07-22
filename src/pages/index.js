@@ -9,7 +9,7 @@ export default () => (
     <SEO pagePath="/" />
     <BreadcrumbList breadcrumbs={[]} />
     <Layout>
-      <GithubEvents user="mjaakko" />
+      <GithubEvents />
     </Layout>
   </>
 );

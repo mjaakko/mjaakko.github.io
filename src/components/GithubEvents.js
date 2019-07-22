@@ -9,6 +9,7 @@ import pluralize from "../utils/pluralize";
 import LoadingIndicator from "./LoadingIndicator";
 import Preconnect from "./Preconnect";
 import useGitHubUserEvents from "../hooks/useGitHubUserEvents";
+import useContacts from "../hooks/useContacts";
 
 const getRepoURL = repoName => "https://github.com/" + repoName;
 
@@ -85,7 +86,8 @@ const IssuesEvent = ({ event }) => (
   </>
 );
 
-export default ({ user }) => {
+export default () => {
+  const user = useContacts().find(({ type }) => type === "github").username;
   const { events, error } = useGitHubUserEvents(user);
 
   return (
