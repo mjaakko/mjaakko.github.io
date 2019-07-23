@@ -8,6 +8,9 @@ export default () => {
           type
           username
           link
+          icon {
+            publicURL
+          }
         }
       }
     }
