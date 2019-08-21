@@ -27,7 +27,7 @@ export default () => {
                 alt=""
                 height={20}
                 width={20}
-                style={{ marginRight: 4, margin: 0, verticalAlign: "middle" }}
+                style={{ margin: 0, marginRight: 4, verticalAlign: "middle" }}
               />
               <a href={contact.link}>{contact.username}</a>
             </li>
