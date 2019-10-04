@@ -22,13 +22,15 @@ export default () => {
         <ul>
           {contacts.map(contact => (
             <li key={contact.type}>
-              <img
-                src={contact.icon.publicURL}
-                alt=""
-                height={20}
-                width={20}
-                style={{ margin: 0, marginRight: 4, verticalAlign: "middle" }}
-              />
+              {contact.icon && (
+                <img
+                  src={contact.icon.publicURL}
+                  alt=""
+                  height={20}
+                  width={20}
+                  style={{ margin: 0, marginRight: 4, verticalAlign: "middle" }}
+                />
+              )}
               <a href={contact.link}>{contact.username}</a>
             </li>
           ))}
