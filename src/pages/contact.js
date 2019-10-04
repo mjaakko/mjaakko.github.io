@@ -31,7 +31,7 @@ export default () => {
                   style={{ margin: 0, marginRight: 4, verticalAlign: "middle" }}
                 />
               )}
-              <a href={contact.link}>{contact.username}</a>
+              {contact.link && <a href={contact.link}>{contact.username}</a>}
             </li>
           ))}
         </ul>
