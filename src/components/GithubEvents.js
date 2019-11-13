@@ -34,7 +34,7 @@ const FormattedDate = ({ date }) => {
 
 const PushEvent = ({ event }) => (
   <>
-    Pushed {event.payload.distinct_size}{" "}
+    I pushed {event.payload.distinct_size}{" "}
     {pluralize("commit", "commits", event.payload.distinct_size)} to{" "}
     <GithubRepoLink repoName={event.repo.name} />
     <br />
@@ -44,7 +44,7 @@ const PushEvent = ({ event }) => (
 
 const CreateEvent = ({ event }) => (
   <>
-    Created repository <GithubRepoLink repoName={event.repo.name} />
+    I created repository <GithubRepoLink repoName={event.repo.name} />
     <br />
     <FormattedDate date={event.created_at} />
   </>
@@ -52,7 +52,7 @@ const CreateEvent = ({ event }) => (
 
 const PullRequestEvent = ({ event }) => (
   <>
-    Opened pull request{" "}
+    I opened pull request{" "}
     <BoldLink href={event.payload.pull_request.html_url}>
       {event.payload.pull_request.title}
     </BoldLink>{" "}
@@ -64,7 +64,7 @@ const PullRequestEvent = ({ event }) => (
 
 const ReleaseEvent = ({ event }) => (
   <>
-    Published release{" "}
+    I published release{" "}
     <BoldLink href={event.payload.release.html_url}>
       {event.payload.release.name}
     </BoldLink>{" "}
@@ -76,7 +76,7 @@ const ReleaseEvent = ({ event }) => (
 
 const IssuesEvent = ({ event }) => (
   <>
-    Opened issue{" "}
+    I opened issue{" "}
     <BoldLink href={event.payload.issue.html_url}>
       {event.payload.issue.title}
     </BoldLink>{" "}
@@ -88,7 +88,7 @@ const IssuesEvent = ({ event }) => (
 
 const IssueCommentEvent = ({ event }) => (
   <>
-    Commented on issue{" "}
+    I commented on issue{" "}
     <BoldLink href={event.payload.comment.html_url}>
       {event.payload.issue.title}
     </BoldLink>{" "}
@@ -106,7 +106,7 @@ export default () => {
     <>
       <Preconnect url="https://api.github.com" />
       <div>
-        <h3>Activity in GitHub</h3>
+        <h3>My activity in GitHub</h3>
         {!!events || !!error || <LoadingIndicator>Loading</LoadingIndicator>}
         {error && <p>{error}</p>}
         {events && (
