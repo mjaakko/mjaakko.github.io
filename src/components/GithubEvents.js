@@ -86,6 +86,18 @@ const IssuesEvent = ({ event }) => (
   </>
 );
 
+const IssueCommentEvent = ({ event }) => (
+  <>
+    Commented on issue{" "}
+    <BoldLink href={event.payload.comment.html_url}>
+      {event.payload.issue.title}
+    </BoldLink>{" "}
+    in <GithubRepoLink repoName={event.repo.name} />
+    <br />
+    <FormattedDate date={event.created_at} />
+  </>
+);
+
 export default () => {
   const user = useContacts().find(({ type }) => type === "github").username;
   const { events, error } = useGitHubUserEvents(user);
@@ -138,6 +150,15 @@ export default () => {
                   return (
                     <li key={event.id}>
                       <IssuesEvent key={event.id} event={event} />
+                    </li>
+                  );
+                } else if (
+                  event.type === "IssueCommentEvent" &&
+                  event.payload.action === "created"
+                ) {
+                  return (
+                    <li key={event.id}>
+                      <IssueCommentEvent key={event.id} event={event} />
                     </li>
                   );
                 } else {
