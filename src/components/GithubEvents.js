@@ -34,8 +34,8 @@ const FormattedDate = ({ date }) => {
 
 const PushEvent = ({ event }) => (
   <>
-    Pushed {event.payload.size}{" "}
-    {pluralize("commit", "commits", event.payload.size)} to{" "}
+    Pushed {event.payload.distinct_size}{" "}
+    {pluralize("commit", "commits", event.payload.distinct_size)} to{" "}
     <GithubRepoLink repoName={event.repo.name} />
     <br />
     <FormattedDate date={event.created_at} />
