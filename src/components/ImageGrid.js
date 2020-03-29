@@ -42,7 +42,9 @@ const Image = ({ image }) => {
 export default ({ images }) => (
   <ImageGrid>
     {images.map(image => {
-      return <Image image={image} />;
+      return (
+        <Image key={`${image.description}_${image.image.id}`} image={image} />
+      );
     })}
   </ImageGrid>
 );

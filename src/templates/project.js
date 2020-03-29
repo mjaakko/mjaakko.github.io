@@ -45,6 +45,7 @@ export const query = graphql`
         images {
           description
           image {
+            id
             thumbnail: childImageSharp {
               fixed(width: 290, height: 170) {
                 ...GatsbyImageSharpFixed
