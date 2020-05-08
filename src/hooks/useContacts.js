@@ -8,6 +8,8 @@ export default () => {
           type
           username
           link
+          recaptcha
+          recaptchaUrl
           icon {
             publicURL
           }

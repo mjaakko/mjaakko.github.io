@@ -2,3 +2,7 @@
   username: "mjaakko"
   link: https://github.com/mjaakko
   icon: ../images/github_120px.png
+- type: "email"
+  recaptcha: true
+  recaptchaUrl: "https://us-central1-malkkixyz.cloudfunctions.net/getValue"
+  icon: ../images/email_120px.png
