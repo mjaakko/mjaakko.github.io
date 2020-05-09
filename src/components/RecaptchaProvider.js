@@ -23,7 +23,9 @@ export default ({ children }) => {
   return (
     <>
       <div className="g-recaptcha" data-sitekey={KEY} data-size="invisible" />
-      <RecaptchaContext.Provider value={window.grecaptcha}>
+      <RecaptchaContext.Provider
+        value={typeof window !== "undefined" ? window.grecaptcha : undefined}
+      >
         {children}
       </RecaptchaContext.Provider>
     </>
