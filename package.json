@@ -35,7 +35,7 @@
     "gatsby-plugin-styled-components": "^3.0.7",
     "gatsby-plugin-typography": "^2.2.4",
     "gatsby-source-filesystem": "^2.0.28",
-    "gatsby-transformer-remark": "^2.3.8",
+    "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "^2.4.3",
     "gatsby-transformer-yaml": "^2.2.3",
     "moment": "^2.24.0",
