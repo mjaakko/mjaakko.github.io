@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Img from "gatsby-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import ImageModal from "../components/ImageModal";
 
 const ImageGrid = styled.div`
@@ -22,14 +22,14 @@ const Image = ({ image }) => {
   return (
     <>
       <ImageModal
-        image={image.image.large.fluid}
+        image={image.image.large}
         description={image.description}
         visible={showFull}
         onClickOutside={() => setShowFull(false)}
       />
       <ImageContainer onClick={() => setShowFull(true)}>
-        <Img
-          fixed={image.image.thumbnail.fixed}
+        <GatsbyImage
+          image={getImage(image.image.thumbnail)}
           alt=""
           style={{ width: 290, height: 170 }}
           imgStyle={{ margin: 0 }}

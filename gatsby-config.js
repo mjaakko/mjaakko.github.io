@@ -20,6 +20,7 @@ module.exports = {
         path: path.join(__dirname, `src`, `images`)
       }
     },
+    `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     {

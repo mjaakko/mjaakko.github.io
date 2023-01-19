@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import Img from "gatsby-image";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 const Modal = styled.div`
   display: flex;
@@ -43,6 +43,8 @@ const ImageModal = ({ image, description, visible, onClickOutside }) => {
     return null;
   }
 
+  console.log(image);
+
   return (
     <Modal
       ref={modal}
@@ -54,7 +56,7 @@ const ImageModal = ({ image, description, visible, onClickOutside }) => {
     >
       <ModalContent contentWidth={image.presentationWidth}>
         <Figure>
-          <Img fluid={image} />
+          <GatsbyImage image={getImage(image)} />
           <figcaption>{description}</figcaption>
         </Figure>
       </ModalContent>

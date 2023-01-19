@@ -47,15 +47,10 @@ export const query = graphql`
           image {
             id
             thumbnail: childImageSharp {
-              fixed(width: 290, height: 170) {
-                ...GatsbyImageSharpFixed
-              }
+              gatsbyImageData(layout: FIXED, width: 290, height: 170)
             }
             large: childImageSharp {
-              fluid(maxWidth: 1200) {
-                ...GatsbyImageSharpFluid
-                presentationWidth
-              }
+              gatsbyImageData(layout: CONSTRAINED)
             }
           }
         }
